@@ -30,6 +30,17 @@ The data pipeline implemented in this project provides concrete evidence of how 
     ```
     The custom `show_batch` method reverses tensor transformations, un-normalizes pixel arrays, and renders the exact arrays the model digests.
 
+*   **Evidence E: Empirical Tensor Shape Verification:**
+    Executing the standalone dataset ingestion pipeline verifies that structural constraints are met prior to model ingestion. Running `python dataset.py` outputs the following structural dimensions for a standard batch size of 4:
+    
+    ```text
+    image torch.Size([4, 3, 224, 224])
+    label torch.Size([4])
+    violance_score torch.Size([4])
+    violence_mask torch.Size([4])
+    attributes torch.Size([4, 10])
+    ```
+
 ---
 
 ## 3. The Reasoning
@@ -38,4 +49,7 @@ The data pipeline implemented in this project provides concrete evidence of how 
 *   **Preventing Training Loop Crashes:** Hyphens left unaddressed in standard string text will cause PyTorch's loss calculation to crash mid-training. Discovering this during initialization saves hours of wasted execution time on cloud GPUs.
 *   **Architecting the Loss Function Early:** Identifying sparse classes through frequency tracking prevents the mistake of using standard Binary Cross Entropy. The evidence shows we must immediately use **Weighted Losses** or **Focal Loss** to stop the model from simply ignoring rare categories.
 *   **Guarding Against Input Distortion:** Augmentations can corrupt aspects of your input data. Reversing the transforms to view the images visually confirms that cropping and scaling did not erase critical target elements. This guarantees that the network learns from meaningful features, not artifact noise.
+
+*   **Verifying Spatial Integrity Before Network Forwarding:** Seeing `torch.Size([4, 3, 224, 224])` empirically proves that our transforms correctly scaled, cropped, and stacked the raw images into standard ImageNet-compatible matrices. This ensures the backbone architecture will not crash due to spatial mismatch.
+
 # UCLA-protest
