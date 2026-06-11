@@ -66,6 +66,7 @@ class UCLADataset(Dataset):
             axes[i].set_title(f"Label: {labels_batch[i].item()}")
             axes[i].axis("off")
         plt.tight_layout()
+        plt.savefig("images/batch_visualization.png", dpi=300)
         plt.show()
 
 
@@ -100,6 +101,7 @@ correlation_matrix = label_cols.corr()
 plt.figure(figsize=(10, 8))
 sns.heatmap(correlation_matrix, annot=True, cmap="coolwarm", center=0, fmt=".2f")
 plt.title("Correlation Between Protest Attributes")
+plt.savefig("images/correlation_matrix.png", dpi=300, bbox_inches="tight")
 plt.show()
 
 # Identifying the Sparse classes:
@@ -115,6 +117,7 @@ plt.title("Frequency of Attributes in UCLA-Protest Dataset (Training Set)")
 plt.xlabel("Number of Occurences (Images with Attribute=1)")
 plt.ylabel("Attribute")
 plt.grid(axis="x", linestyle="--", alpha=0.6)
+plt.savefig("images/attribute_frequency.png", dpi=300, bbox_inches="tight")
 plt.show()
 
 for batch in train_loader:
