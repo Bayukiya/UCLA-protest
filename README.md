@@ -68,4 +68,45 @@ Visually isolating the absolute frequencies reveals severe class sparse categori
 Mapping linear dependencies reveals how labels co-occur, paving the way for optimized multitask head optimization.
 ![Correlation Matrix](images/correlation_matrix.png)
 
+## 5. Citation
+
+If you reference this pipeline, the data-first analysis framework, or the code in an academic or professional setting, please cite it using the following BibTeX format:
+
+```bibtex
+@software{Kune_UCLA-Protest_A_Data-First_2026,
+  author = {Kune, Bayisa},
+  title = {{UCLA-Protest: A Data-First ML Pipeline and Analysis}},
+  url = {https://github.com},
+  version = {1.0.0},
+  year = {2026},
+  month = {6}
+}
+```
+
+---
+
+### 3. The Reasoning
+* **Academic Automation:** When you add the `CITATION.cff` file, GitHub automatically injects a sidebar element on your repository page that allows researchers to export your citation in APA or BibTeX formats with a single click.
+* **Tracking Your Impact:** Providing a clear BibTeX block makes it significantly easier for Google Scholar and other indexing services to track who has referenced your work, boosting your profile's academic visibility.
+
+---
+
+### 4. Upload the Citation Files to GitHub
+Once you have created the `CITATION.cff` file and appended the text to your `README.md`, run these final commands in your VS Code terminal:
+
+```bash
+# Stage the new citation file and updated README
+git add CITATION.cff README.md
+
+# Commit the changes with a clear message
+git commit -m "docs: add academic citation support via CITATION.cff and BibTeX"
+
+# Push to your repository
+git push origin main
+```
+
+***
+
+Let me know if you want to **add a license file (like MIT or Apache)** to your repository, which tells people exactly how they are legally allowed to copy or reuse your code!
+
 # UCLA-protest
