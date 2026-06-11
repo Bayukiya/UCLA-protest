@@ -38,3 +38,4 @@ The data pipeline implemented in this project provides concrete evidence of how 
 *   **Preventing Training Loop Crashes:** Hyphens left unaddressed in standard string text will cause PyTorch's loss calculation to crash mid-training. Discovering this during initialization saves hours of wasted execution time on cloud GPUs.
 *   **Architecting the Loss Function Early:** Identifying sparse classes through frequency tracking prevents the mistake of using standard Binary Cross Entropy. The evidence shows we must immediately use **Weighted Losses** or **Focal Loss** to stop the model from simply ignoring rare categories.
 *   **Guarding Against Input Distortion:** Augmentations can corrupt aspects of your input data. Reversing the transforms to view the images visually confirms that cropping and scaling did not erase critical target elements. This guarantees that the network learns from meaningful features, not artifact noise.
+# UCLA-protest
