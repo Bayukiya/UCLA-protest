@@ -19,26 +19,10 @@ from models.model_factory import build_experiment_model
 from utils.output_adapter import standardize_outputs
 
 
-ATTRIBUTE_NAMES = [
-    "Sign",
-    "Photo",
-    "Fire",
-    "Police",
-    "Children",
-    "Group_20",
-    "Group_100",
-    "Flag",
-    "Night",
-    "Shouting",
-]
+ATTRIBUTE_NAMES = ["Sign", "Photo", "Fire", "Police", "Children", "Group_20", "Group_100", "Flag", "Night", "Shouting"]
 
 
-SUPPORTED_BACKBONES = [
-    "resnet50",
-    "efficientnet_b3",
-    "vit_base",
-    "convnext_base",
-]
+SUPPORTED_BACKBONES = ["resnet50", "efficientnet_b3", "vit_base", "convnext_base"]
 
 
 def infer_experiment_mode_from_checkpoint_path(checkpoint_path: str) -> Optional[str]:
@@ -93,10 +77,7 @@ def infer_model_choice_from_experiment_mode(experiment_mode: str) -> str:
     raise ValueError(f"Cannot infer backbone from experiment_mode='{experiment_mode}'.")
 
 
-def infer_experiment_mode_and_model_choice(
-    checkpoint_path: str,
-    checkpoint: Dict,
-) -> Tuple[str, str]:
+def infer_experiment_mode_and_model_choice(checkpoint_path: str, checkpoint: Dict) -> Tuple[str, str]:
     """
     Robustly infer experiment_mode and model_choice from:
         1. unified checkpoint metadata
@@ -132,11 +113,7 @@ def infer_experiment_mode_and_model_choice(
     raise ValueError(f"Could not determine model type from checkpoint metadata, parent folder, or filename. checkpoint_path={checkpoint_path}")
 
 
-def build_attention_model_from_checkpoint(
-    checkpoint_path: str,
-    checkpoint: Dict,
-    device: torch.device,
-):
+def build_attention_model_from_checkpoint(checkpoint_path: str, checkpoint: Dict, device: torch.device):
     """
     Build and load an attention model from either:
         - unified checkpoint: checkpoint['model_state']
@@ -202,13 +179,7 @@ def build_attention_model_from_checkpoint(
     raise KeyError("Checkpoint must contain either unified key 'model_state' or legacy keys 'backbone_state' and 'head_state'.")
 
 
-def extract_weakly_supervised_bbox(
-    checkpoint_path,
-    raw_image_path,
-    target_attribute="Sign",
-    threshold_pct=0.15,
-    output_dir="Visualize/attention",
-):
+def extract_weakly_supervised_bbox(checkpoint_path, raw_image_path, target_attribute="Sign", threshold_pct=0.15, output_dir="Visualize/attention"):
     """
     Extract attention-derived coarse bounding boxes from task-query attention maps.
 
@@ -393,41 +364,15 @@ def extract_weakly_supervised_bbox(
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Attention-Derived Weak Localization Visualization Engine")
 
-    parser.add_argument(
-        "--checkpoint",
-        type=str,
-        required=True,
-        help="Path to saved PyTorch attention-head checkpoint.",
-    )
+    parser.add_argument("--checkpoint", type=str, required=True, help="Path to saved PyTorch attention-head checkpoint.")
 
-    parser.add_argument(
-        "--image",
-        type=str,
-        required=True,
-        help="Path to target raw test image.",
-    )
+    parser.add_argument("--image", type=str, required=True, help="Path to target raw test image.")
 
-    parser.add_argument(
-        "--attribute",
-        type=str,
-        default="Sign",
-        choices=ATTRIBUTE_NAMES,
-        help="Target attribute query.",
-    )
+    parser.add_argument("--attribute", type=str, default="Sign", choices=ATTRIBUTE_NAMES, help="Target attribute query.")
 
-    parser.add_argument(
-        "--threshold",
-        type=float,
-        default=0.15,
-        help="Top attention fraction to keep, e.g. 0.15 means top 15%.",
-    )
+    parser.add_argument("--threshold", type=float, default=0.15, help="Top attention fraction to keep, e.g. 0.15 means top 15%.")
 
-    parser.add_argument(
-        "--output_dir",
-        type=str,
-        default="Visualize/attention",
-        help="Directory for exported localization figures.",
-    )
+    parser.add_argument("--output_dir", type=str, default="Visualize/attention", help="Directory for exported localization figures.")
 
     args = parser.parse_args()
 
